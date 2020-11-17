@@ -1,5 +1,2 @@
 # JSP
 JSP
-
-HELLO WORLD!
-반갑습니다. 1234
