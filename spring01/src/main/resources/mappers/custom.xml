@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="custom">
+ 	<select id="list" resultType="com.example.spring01.model.dto.CustomDTO">
+ 		select * from custom where BUSI_NUM like '${BUSI_NUM}' or CUSTOM like '${CUSTOM}' order by BUSI_NUM
+ 	</select>
+ 	<insert id="insert">
+ 		insert into custom (BUSI_NUM,CUSTOM,SHORT,CEO,CHARGE_PERSON,BUSI_CONDITION,ITEM,POST_NUM,ADDR1,
+ 		ADDR2,TEL,FAX,HOMEPAGE,CO_YN,FOREIGN_YN,TAX_YN,COUNTRY_ENG,COUNTRY_KOR,SPECIAL_RELATION,TRADE_STOP,
+ 		CONTRACT_PERIOD_S,CONTRACT_PERIOD_E,REGI_INFO_MAN,REGI_INFO_DATE,MODI_INFO_MAN,MODI_INFO_DATE)
+ 		values
+ 		(#{BUSI_NUM},#{CUSTOM},#{SHORT},#{CEO},#{CHARGE_PERSON},#{BUSI_CONDITION},#{ITEM},#{POST_NUM},#{ADDR1},
+ 		#{ADDR2},#{TEL},#{FAX},#{HOMEPAGE},#{CO_YN},#{FOREIGN_YN},#{TAX_YN},#{COUNTRY_ENG},#{COUNTRY_KOR},#{SPECIAL_RELATION},#{TRADE_STOP},
+ 		#{CONTRACT_PERIOD_S},#{CONTRACT_PERIOD_E},#{REGI_INFO_MAN},#{REGI_INFO_DATE},#{MODI_INFO_MAN},#{MODI_INFO_DATE})
+ 	</insert>
+ 	<insert id="inserta">
+ 		insert into account (BUSI_NUM,FACTORY,TRADE_BANK,ACCOUNT_NUM)
+ 		values
+ 		(#{BUSI_NUM},#{FACTORY},#{TRADE_BANK},#{ACCOUNT_NUM})
+ 	</insert>
+ 	<select id="detail"
+ 		resultType="com.example.spring01.model.dto.CustomDTO">
+ 		 SELECT * FROM custom LEFT JOIN account 
+		 ON custom.BUSI_NUM = account.BUSI_NUM 
+		 WHERE custom.BUSI_NUM=#{BUSI_NUM}
+		 UNION 
+		 SELECT * FROM custom RIGHT JOIN account 
+		 ON custom.BUSI_NUM = account.BUSI_NUM
+		 WHERE custom.BUSI_NUM=#{BUSI_NUM}
+ 	</select>
+ 	<update id="update">
+ 		update custom
+ 		set BUSI_NUM=#{BUSI_NUM},CUSTOM=#{CUSTOM},CEO=#{CEO},CHARGE_PERSON=#{CHARGE_PERSON},BUSI_CONDITION=#{CHARGE_PERSON},BUSI_CONDITION=#{BUSI_CONDITION},
+ 		ITEM=#{ITEM},POST_NUM=#{POST_NUM},ADDR1=#{ADDR1},ADDR2=#{ADDR2},TEL=#{TEL},FAX=#{FAX},HOMEPAGE=#{HOMEPAGE},CO_YN=#{CO_YN},FOREIGN_YN=#{FOREIGN_YN},
+ 		TAX_YN=#{TAX_YN},COUNTRY_ENG=#{COUNTRY_ENG},COUNTRY_KOR=#{COUNTRY_KOR},SPECIAL_RELATION=#{SPECIAL_RELATION},TRADE_STOP=#{TRADE_STOP},
+ 		CONTRACT_PERIOD_S=#{CONTRACT_PERIOD_S},CONTRACT_PERIOD_E=#{CONTRACT_PERIOD_E},REGI_INFO_MAN=#{REGI_INFO_MAN},REGI_INFO_DATE=#{REGI_INFO_DATE},
+ 		MODI_INFO_MAN=#{MODI_INFO_MAN},MODI_INFO_DATE=#{MODI_INFO_DATE}
+ 		where BUSI_NUM=#{BUSI_NUM}
+ 	</update>
+ 	<update id="updatea">
+ 		update account
+ 		set FACTORY=#{FACTORY},TRADE_BANK=#{TRADE_BANK},ACCOUNT_NUM=#{ACCOUNT_NUM}
+ 		where BUSI_NUM=#{BUSI_NUM}
+ 	</update>
+ 	<delete id="delete">
+ 		delete from custom
+ 		where BUSI_NUM=#{BUSI_NUM}
+ 	</delete>
+ 	<delete id="deletea">
+ 		delete from account
+ 		where BUSI_NUM=#{BUSI_NUM}
+ 	</delete>
+</mapper>
